@@ -1,0 +1,12 @@
+.timings {
+  width: 300px;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+
+  > p {
+    color: rgba(165, 192, 255, 0.7);
+  }
+}

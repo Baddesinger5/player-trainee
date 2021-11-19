@@ -1,0 +1,16 @@
+.controls {
+  width: 165px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 40px auto 0 auto;
+
+  > .button {
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    outline: none;
+  }
+}
+
