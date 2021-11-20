@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import './TrackTimings.scss';
 
 type trackTimingsTypes = {
@@ -10,9 +10,15 @@ type trackTimingsTypes = {
 export const TrackTimings: React.FC<trackTimingsTypes> = ({duration, currentTime}) => {
 
 
-    if (duration === undefined) {
+
+    // if (duration === undefined) {
+    //     return null
+    // }
+
+    if (isNaN(duration)) {
         return null
     }
+
 
     const allTrackMinutes = Math.floor(duration / 60);
     const allTrackSeconds = duration - allTrackMinutes * 60;
