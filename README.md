@@ -1,3 +1,3 @@
-https://test-player-2e5d8.web.app/
+https://test-playerr-e9685.web.app/
 
 deployed for tests

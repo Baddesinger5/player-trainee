@@ -8,6 +8,7 @@ export const Player: React.FC = () => {
     const [ourTrack, setOurTrack] = useState<string | undefined>('');
     const [isPlay, setIsPlay] = useState<boolean>(false)
     const [currentTime, setCurrentTime] = useState<number>(0)
+    const [duration, setDuration] = useState<any>(null)
 
     const uploadMedia = (e: React.ChangeEvent<HTMLInputElement>) => {
         setOurTrack(URL.createObjectURL(e.target.files![0]))
@@ -15,8 +16,6 @@ export const Player: React.FC = () => {
 
     const playerRefs = useRef<string | undefined | any>(ourTrack);
     const intervalRef = useRef<any>()
-
-    const {duration} = playerRefs.current
 
 
     useEffect(() => {
@@ -75,7 +74,7 @@ export const Player: React.FC = () => {
 
             {ourTrack === '' ? <input type="file" onChange={uploadMedia}/> : null}
 
-            <audio src={ourTrack} ref={playerRefs} ></audio>
+            <audio src={ourTrack} ref={playerRefs} onLoadedMetadata={(e: any) => setDuration(e.target.duration)}></audio>
 
             <TrackTimings duration={duration} currentTime={currentTime} />
 

@@ -15,17 +15,19 @@ export const TrackTimings: React.FC<trackTimingsTypes> = ({currentTime, duration
     const currentMinutes = Math.floor(currentTime / 60);
     const currentSeconds = currentTime - currentMinutes * 60;
 
-
     return (
         <div className={'timings'}>
             <p>{currentMinutes < 10 ? '0' + currentMinutes : currentMinutes}:
                 {currentSeconds < 10 ? '0' + currentSeconds.toFixed(0) : + currentSeconds.toFixed(0)}
             </p>
 
-            {isNaN(duration) ? <p>00:00</p> :
+            {duration ?
                 <p>{allTrackMinutes < 10 ? '0' + allTrackMinutes : allTrackMinutes}:
                     {allTrackSeconds < 10 ? '0' + allTrackSeconds.toFixed(0) : allTrackSeconds.toFixed(0)}
                 </p>
+                :
+                <p>00:00</p>
+
             }
 
         </div>
