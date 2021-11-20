@@ -7,18 +7,7 @@ type trackTimingsTypes = {
 }
 
 
-export const TrackTimings: React.FC<trackTimingsTypes> = ({duration, currentTime}) => {
-
-
-
-    // if (duration === undefined) {
-    //     return null
-    // }
-
-    if (isNaN(duration)) {
-        return null
-    }
-
+export const TrackTimings: React.FC<trackTimingsTypes> = ({currentTime, duration}) => {
 
     const allTrackMinutes = Math.floor(duration / 60);
     const allTrackSeconds = duration - allTrackMinutes * 60;
@@ -33,9 +22,12 @@ export const TrackTimings: React.FC<trackTimingsTypes> = ({duration, currentTime
                 {currentSeconds < 10 ? '0' + currentSeconds.toFixed(0) : + currentSeconds.toFixed(0)}
             </p>
 
-            <p>{allTrackMinutes < 10 ? '0' + allTrackMinutes : allTrackMinutes}:
-                {allTrackSeconds < 10 ? '0' + allTrackSeconds.toFixed(0) : allTrackSeconds.toFixed(0)}
-            </p>
+            {isNaN(duration) ? <p>00:00</p> :
+                <p>{allTrackMinutes < 10 ? '0' + allTrackMinutes : allTrackMinutes}:
+                    {allTrackSeconds < 10 ? '0' + allTrackSeconds.toFixed(0) : allTrackSeconds.toFixed(0)}
+                </p>
+            }
+
         </div>
     )
 }

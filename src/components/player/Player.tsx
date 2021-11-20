@@ -18,6 +18,7 @@ export const Player: React.FC = () => {
 
     const {duration} = playerRefs.current
 
+
     useEffect(() => {
         if (isPlay) {
             playerRefs.current.play()
@@ -74,7 +75,7 @@ export const Player: React.FC = () => {
 
             {ourTrack === '' ? <input type="file" onChange={uploadMedia}/> : null}
 
-            <audio src={ourTrack} ref={playerRefs}></audio>
+            <audio src={ourTrack} ref={playerRefs} ></audio>
 
             <TrackTimings duration={duration} currentTime={currentTime} />
 
