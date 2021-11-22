@@ -1,12 +1,10 @@
-.timings {
-  width: 300px;
-  height: auto;
+.PlayerTimings {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: 'Roboto', sans-serif;
+  width: 300px;
 
-  > p {
+  > .timing {
     color: rgba(165, 192, 255, 0.7);
   }
 }

@@ -1,14 +1,11 @@
 import React from 'react';
 import './App.scss';
-import {Player} from "./components/player/Player";
-import 'normalize.css';
+import { Player } from "./components/player/Player";
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
   return (
     <div className="App">
-        <Player />
+      <Player />
     </div>
   );
 }
-
-export default App;
