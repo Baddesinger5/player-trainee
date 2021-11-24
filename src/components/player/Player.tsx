@@ -4,28 +4,37 @@ import { PlayerTimings } from './PlayerTimings';
 import './Player.scss';
 import { usePlayerCurrentTime } from './hooks/usePlayerCurrentTime';
 import { usePlayerDuration } from './hooks/usePlayerDuration';
-import { usePlayerAudioFileUrl } from './hooks/usePlayerAudioFileUrl';
+import { usePlayerAudioFilesUrl } from './hooks/usePlayerAudioFilesUrl';
 import { PlayerRange } from './PlayerRange';
 import { PlayerContext, usePlayerContext } from './PlayerContext';
+import { PlayerList } from "./PlayerList";
 
 export const Player: FC = () => {
   const contextValue = usePlayerContext();
   const { setAudioElement } = contextValue;
-  const [audioFileUrl, onFileChange] = usePlayerAudioFileUrl();
+
+  const [audioFilesUrl, onFileChange] = usePlayerAudioFilesUrl(); //files here
+
   const [duration, onLoadedMetadata] = usePlayerDuration();
   const [currentTime, onTimeUpdate] = usePlayerCurrentTime();
+
+  // console.log(audioFilesUrl)
 
   return (
     <PlayerContext.Provider value={contextValue}>
       <div className="Player">
-        {audioFileUrl ?
+
+        <PlayerList audioFilesUrl={audioFilesUrl}/>
+
+        {audioFilesUrl ?
+
           <audio
-            src={audioFileUrl}
+            // src={audioFileUrl}
             ref={setAudioElement}
             onLoadedMetadata={onLoadedMetadata}
             onTimeUpdate={onTimeUpdate}
             autoPlay={true} /> :
-          <input type="file" onChange={onFileChange} />}
+          <input type="file" onChange={onFileChange} multiple={true} />}
 
         <PlayerTimings duration={duration} currentTime={currentTime} />
 
