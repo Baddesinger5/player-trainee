@@ -13,7 +13,5 @@ export const PlayerContext = createContext<PlayerContextValue>({
 export function usePlayerContext(): PlayerContextValue {
   const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
 
-  return useMemo(() => ({
-    audioElement, setAudioElement
-  }), [audioElement, setAudioElement]);
+  return useMemo(() => ({ audioElement, setAudioElement  }), [audioElement, setAudioElement]);
 }

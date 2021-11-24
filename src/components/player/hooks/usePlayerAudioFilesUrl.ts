@@ -6,12 +6,12 @@ export function usePlayerAudioFilesUrl(): [File[] | null , Dispatch<ChangeEvent<
 
   const onFileChange = useCallback(({target}: ChangeEvent<HTMLInputElement>) => {
     if (target.files) {
-      const file = target.files
-      const arrayFromObj = Array.from(file);
+      const files = Array.from(target.files);
 
-      if (file) {
-        setAudioFileUrl(arrayFromObj.filter((item) => {
-          return item.type === 'audio/mpeg'
+
+      if (files.length) {
+        setAudioFileUrl(files.filter((item) => {
+          return item.type.match('audio.*')
         }))
       }
 

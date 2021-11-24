@@ -7,18 +7,16 @@ import { usePlayerDuration } from './hooks/usePlayerDuration';
 import { usePlayerAudioFilesUrl } from './hooks/usePlayerAudioFilesUrl';
 import { PlayerRange } from './PlayerRange';
 import { PlayerContext, usePlayerContext } from './PlayerContext';
-import { PlayerList } from "./PlayerList";
+import { PlayerList } from './PlayerList';
 
 export const Player: FC = () => {
   const contextValue = usePlayerContext();
   const { setAudioElement } = contextValue;
 
-  const [audioFilesUrl, onFileChange] = usePlayerAudioFilesUrl(); //files here
+  const [audioFilesUrl, onFileChange] = usePlayerAudioFilesUrl();
 
   const [duration, onLoadedMetadata] = usePlayerDuration();
   const [currentTime, onTimeUpdate] = usePlayerCurrentTime();
-
-  // console.log(audioFilesUrl)
 
   return (
     <PlayerContext.Provider value={contextValue}>
@@ -27,7 +25,6 @@ export const Player: FC = () => {
         <PlayerList audioFilesUrl={audioFilesUrl}/>
 
         {audioFilesUrl ?
-
           <audio
             // src={audioFileUrl}
             ref={setAudioElement}

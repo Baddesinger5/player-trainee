@@ -11,7 +11,7 @@ import { useMediaElementPlaying } from '../../hooks/useMediaElementPlaying';
 import { PlayerContext } from './PlayerContext';
 
 export const PlayerControls: FC = () => {
-  const {audioElement} = useContext(PlayerContext);
+  const { audioElement } = useContext(PlayerContext);
   const moveBackward = useCallback(() => audioElement && (audioElement.currentTime -= 10), [audioElement]);
   const moveForward = useCallback(() => audioElement && (audioElement.currentTime += 10), [audioElement]);
   const togglePlaying = useCallback(() => {
