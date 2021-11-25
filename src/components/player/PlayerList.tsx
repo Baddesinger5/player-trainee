@@ -2,20 +2,16 @@ import React, { FC, useContext } from 'react';
 import './PlayerList.scss';
 import { PlayerContext } from './PlayerContext';
 
-
 export const PlayerList: FC = () => {
-
-  const { audios, } = useContext(PlayerContext);
+  const { audioFiles } = useContext(PlayerContext);
 
   return (
-    <div className="PlayerList">
-      {audios && audios?.map((item: File, index: number) => {
-        return (
-          <div className="audio-item" key={index}>
-            {item.name}
-          </div>
-        )
-      })}
-    </div>
-  )
-}
+    <ul className="PlayerList">
+      {audioFiles.map((item, index) => (
+        <li className="item" key={index}>
+          {item.name}
+        </li>
+      ))}
+    </ul>
+  );
+};

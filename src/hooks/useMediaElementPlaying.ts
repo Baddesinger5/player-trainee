@@ -1,22 +1,22 @@
 import { useEffect, useState } from 'react';
 
-export function useMediaElementPlaying(audioElement: HTMLMediaElement | null) {
+export function useMediaElementPlaying(mediaElement: HTMLMediaElement | null) {
   const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
-    if (audioElement) {
+    if (mediaElement) {
       const playCallback = () => setPlaying(true);
       const pauseCallback = () => setPlaying(false);
 
-      audioElement.addEventListener('play', playCallback);
-      audioElement.addEventListener('pause', pauseCallback);
+      mediaElement.addEventListener('play', playCallback);
+      mediaElement.addEventListener('pause', pauseCallback);
 
       return () => {
-        audioElement.removeEventListener('play', playCallback);
-        audioElement.removeEventListener('pause', pauseCallback);
+        mediaElement.removeEventListener('play', playCallback);
+        mediaElement.removeEventListener('pause', pauseCallback);
       };
     }
-  }, [audioElement]);
+  }, [mediaElement]);
 
   return playing;
 }

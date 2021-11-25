@@ -3,26 +3,35 @@ import { createContext, Dispatch, SetStateAction, useMemo, useState } from 'reac
 export interface PlayerContextValue {
   audioElement: HTMLAudioElement | null;
   setAudioElement: Dispatch<SetStateAction<HTMLAudioElement | null>>;
-  audios: File[] | null;
-  setAudioList: Dispatch<SetStateAction<File[] | null>>;
+  audioFiles: File[];
+  setAudioFiles: Dispatch<SetStateAction<File[]>>;
   selectedAudioFile: File | null;
-  setSelectedAudioFile: Dispatch<SetStateAction<File | null>>
+  setSelectedAudioFile: Dispatch<SetStateAction<File | null>>;
 }
 
 export const PlayerContext = createContext<PlayerContextValue>({
   audioElement: null,
   setAudioElement() {},
-  audios: null,
-  setAudioList() {},
+  audioFiles: [],
+  setAudioFiles() {},
   selectedAudioFile: null,
   setSelectedAudioFile() {},
 });
 
 export function usePlayerContext(): PlayerContextValue {
   const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
-  const [audios, setAudioList ] = useState<File[] | null>(null);
-  const [ selectedAudioFile, setSelectedAudioFile ] = useState<File | null>(null)
+  const [audioFiles, setAudioFiles] = useState<File[]>([]);
+  const [selectedAudioFile, setSelectedAudioFile] = useState<File | null>(null);
 
-  return useMemo(() => ({ audioElement, setAudioElement, audios, setAudioList, selectedAudioFile, setSelectedAudioFile  }),
-    [audioElement, setAudioElement, audios, setAudioList,  selectedAudioFile, setSelectedAudioFile  ]);
+  return useMemo(
+    () => ({
+      audioElement,
+      setAudioElement,
+      audioFiles,
+      setAudioFiles,
+      selectedAudioFile,
+      setSelectedAudioFile,
+    }),
+    [audioElement, setAudioElement, audioFiles, setAudioFiles, selectedAudioFile, setSelectedAudioFile],
+  );
 }

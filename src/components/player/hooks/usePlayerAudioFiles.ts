@@ -1,22 +1,28 @@
 import { ChangeEvent, Dispatch, useCallback, useContext } from 'react';
 import { PlayerContext } from '../PlayerContext';
 
-export function usePlayerAudioFiles(): [Dispatch<ChangeEvent<HTMLInputElement>>] {
+const audioRegExp = /^audio\/.+/;
 
-  const {setAudioList} = useContext(PlayerContext)
+export function usePlayerAudioFiles(): Dispatch<ChangeEvent<HTMLInputElement>> {
+  const { setAudioFiles, setSelectedAudioFile } = useContext(PlayerContext);
 
-  const onFileChange = useCallback(({target}: ChangeEvent<HTMLInputElement>) => {
-    if (target.files) {
-      const files = Array.from(target.files);
+  return useCallback(
+    ({ target }: ChangeEvent<HTMLInputElement>) => {
+      if (target.files) {
+        const files = Array.from(target.files);
 
-      if (files.length) {
-        setAudioList(files.filter((item) => {
-          return item.type.match('^audio/.+')
-        }))
+        if (files.length) {
+          const audioFiles = files.filter(({ type }) => type.match(audioRegExp));
+          const [firstAudioFile] = audioFiles;
+
+          setAudioFiles(audioFiles);
+
+          if (firstAudioFile) {
+            setSelectedAudioFile(firstAudioFile);
+          }
+        }
       }
-
-    }
-  }, []);
-
-  return [onFileChange];
+    },
+    [setAudioFiles, setSelectedAudioFile],
+  );
 }
