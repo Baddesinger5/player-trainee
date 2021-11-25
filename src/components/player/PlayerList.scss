@@ -1,0 +1,11 @@
+.PlayerList {
+  width: 300px;
+  overflow: hidden;
+
+  > .audio-item {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 3px 0;
+  }
+}
