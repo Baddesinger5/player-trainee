@@ -4,7 +4,7 @@ export function useMediaElementNumberPropertyValue(
   mediaElement: HTMLMediaElement | null,
   eventName: keyof GlobalEventHandlersEventMap,
   propertyName: keyof HTMLMediaElement,
-): number {
+  ): number {
   const [value, setValue] = useState(0);
 
   useEffect(() => {
@@ -13,7 +13,9 @@ export function useMediaElementNumberPropertyValue(
 
       mediaElement.addEventListener(eventName, callback);
 
-      return mediaElement.removeEventListener(eventName, callback);
+      return () => {
+        mediaElement.removeEventListener(eventName, callback);
+      }
     }
   }, [mediaElement, eventName, propertyName]);
 

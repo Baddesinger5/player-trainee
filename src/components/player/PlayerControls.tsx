@@ -11,11 +11,25 @@ import { useMediaElementPlaying } from '../../hooks/useMediaElementPlaying';
 import { PlayerContext } from './PlayerContext';
 
 export const PlayerControls: FC = () => {
-  const { audioElement } = useContext(PlayerContext);
+  const { audioElement, setSelectedAudioFile, audioFiles, selectedAudioFile } = useContext(PlayerContext);
+  const playing = useMediaElementPlaying(audioElement);
 
   const moveBackward = useCallback(() => audioElement && (audioElement.currentTime -= 10), [audioElement]);
   const moveForward = useCallback(() => audioElement && (audioElement.currentTime += 10), [audioElement]);
 
+  const nextTrack = useCallback((value: any) => {
+    value = selectedAudioFile && audioFiles.indexOf(selectedAudioFile);
+    if (value !== audioFiles.length - 1) {
+      setSelectedAudioFile(audioFiles[value += 1])
+    }
+  }, [setSelectedAudioFile, selectedAudioFile, audioFiles])
+  const prevTrack = useCallback((value: any) => {
+    value = selectedAudioFile && audioFiles.indexOf(selectedAudioFile);
+    if (value !== 0) {
+      setSelectedAudioFile(audioFiles[value -= 1])
+    }
+
+  }, [setSelectedAudioFile, selectedAudioFile, audioFiles])
 
   const togglePlaying = useCallback(() => {
     if (audioElement) {
@@ -27,12 +41,9 @@ export const PlayerControls: FC = () => {
     }
   }, [audioElement]);
 
-  const playing = useMediaElementPlaying(audioElement);
-
-
   return (
     <div className="PlayerControls">
-      <button className="button"  disabled={!audioElement}>
+      <button className="button" onClick={prevTrack}  disabled={!audioFiles} >
         <PrevIcon />
       </button>
 
@@ -48,7 +59,7 @@ export const PlayerControls: FC = () => {
         <ForwardIcon />
       </button>
 
-      <button className="button" disabled={!audioElement}>
+      <button className="button"  onClick={nextTrack} disabled={!audioFiles}>
         <NextIcon />
       </button>
     </div>

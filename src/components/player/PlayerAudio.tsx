@@ -6,5 +6,5 @@ export const PlayerAudio: FC<AudioHTMLAttributes<HTMLAudioElement>> = () => {
 
   const audioFileUrl = useMemo(() => selectedAudioFile && URL.createObjectURL(selectedAudioFile), [selectedAudioFile]);
 
-  return <audio src={audioFileUrl ? audioFileUrl : undefined} ref={setAudioElement} autoPlay={true} />;
+  return <audio src={audioFileUrl ? audioFileUrl : undefined} ref={setAudioElement}  />;
 };

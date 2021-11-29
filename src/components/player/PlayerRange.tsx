@@ -7,8 +7,9 @@ interface Props {
   duration: number,
 }
 
-export const PlayerRange: FC<Props> = ({ currentTime, duration }) => {
+export const PlayerRange: FC<Props> = ({currentTime, duration}) => {
   const { audioElement } = useContext(PlayerContext);
+
   const onRangeChange = useCallback(({ target }: ChangeEvent<HTMLInputElement>) => {
     if (audioElement) {
       audioElement.currentTime = +target.value;

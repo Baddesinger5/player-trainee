@@ -7,7 +7,8 @@ interface Props {
   currentTime: number,
 }
 
-export const PlayerTimings: FC<Props> = ({currentTime, duration}) => {
+export const PlayerTimings: FC<Props> = ({duration, currentTime}) => {
+
   const [durationMinutes, durationSeconds] = usePlayerTimeData(duration);
   const [currentMinutes, currentSeconds] = usePlayerTimeData(currentTime);
 

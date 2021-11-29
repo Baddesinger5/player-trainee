@@ -13,24 +13,19 @@ import { PlayerAudio } from './PlayerAudio';
 export const Player: FC = () => {
   const contextValue = usePlayerContext();
   const { audioFiles, audioElement } = contextValue;
+
   const duration = useMediaElementDuration(audioElement);
   const currentTime = useMediaElementCurrentTime(audioElement);
 
   return (
     <PlayerContext.Provider value={contextValue}>
       <div className="Player">
-        {audioFiles ? (
-          <>
-            <PlayerList />
-            <PlayerAudio />
-          </>
-        ) : (
-          <PlayerInput />
-        )}
+
+        {audioFiles.length ? (<> <PlayerList /> <PlayerAudio /> </>) : <PlayerInput/> }
 
         <PlayerTimings duration={duration} currentTime={currentTime} />
 
-        <PlayerRange duration={duration} currentTime={currentTime} />
+        <PlayerRange  duration={duration} currentTime={currentTime} />
 
         <PlayerControls />
       </div>
