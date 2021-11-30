@@ -4,6 +4,8 @@ import {ReactComponent as PauseIcon} from '../../icons/pause.svg';
 import './PlayerAudioFile.scss';
 import { PlayerContext } from './PlayerContext';
 import { useMediaElementPlaying } from '../../hooks/useMediaElementPlaying';
+import { usePlayerAudioFileData } from './hooks/usePlayerAudioFileData';
+import { usePlayerTimeData } from './hooks/usePlayerTimeData';
 
 interface Props {
   audioFile: File,
@@ -12,6 +14,8 @@ interface Props {
 export const PlayerAudioFile: FC<Props> = ({ audioFile }) => {
   const {audioElement, setSelectedAudioFile, selectedAudioFile} = useContext(PlayerContext);
   const playing = useMediaElementPlaying(audioElement);
+  const audioFileDuration = usePlayerAudioFileData(audioFile);
+  const [durationMinutes, durationSeconds] = usePlayerTimeData(audioFileDuration)
 
   const playTrackFromList = useCallback(() => {
     setSelectedAudioFile(audioFile)
@@ -23,11 +27,11 @@ export const PlayerAudioFile: FC<Props> = ({ audioFile }) => {
 
   return (
       <button className='PlayerAudioFile' onClick={playTrackFromList}>
-        <div>{playing ? <PauseIcon /> : <PlayIcon /> }</div>
+        <div>{playing && audioFile === selectedAudioFile ? <PauseIcon /> : <PlayIcon /> }</div>
 
-        <p className='audio-name'>{audioFile.name}</p>
+        <div className='name'>{audioFile.name}</div>
 
-        <p>00:00</p>
+        <div>{durationMinutes}:{durationSeconds}</div>
       </button>
   );
 };

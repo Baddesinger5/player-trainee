@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useContext } from 'react';
+import React, { FC, useCallback, useContext, useEffect } from 'react';
 import { ReactComponent as PlayIcon } from '../../icons/play.svg';
 import { ReactComponent as PauseIcon } from '../../icons/pause.svg';
 import { ReactComponent as BackwardIcon } from "../../icons/backward.svg";
@@ -17,19 +17,31 @@ export const PlayerControls: FC = () => {
   const moveBackward = useCallback(() => audioElement && (audioElement.currentTime -= 10), [audioElement]);
   const moveForward = useCallback(() => audioElement && (audioElement.currentTime += 10), [audioElement]);
 
-  const nextTrack = useCallback((value: any) => {
-    value = selectedAudioFile && audioFiles.indexOf(selectedAudioFile);
-    if (value !== audioFiles.length - 1) {
-      setSelectedAudioFile(audioFiles[value += 1])
-    }
-  }, [setSelectedAudioFile, selectedAudioFile, audioFiles])
-  const prevTrack = useCallback((value: any) => {
-    value = selectedAudioFile && audioFiles.indexOf(selectedAudioFile);
-    if (value !== 0) {
-      setSelectedAudioFile(audioFiles[value -= 1])
+  const onChangePrevTrack = useCallback(() => {
+    let value: number | null = selectedAudioFile && audioFiles.indexOf(selectedAudioFile)
+    if (value) {
+      setSelectedAudioFile(audioFiles[value -= 1]);
     }
 
   }, [setSelectedAudioFile, selectedAudioFile, audioFiles])
+
+  const onChangeNextTrack = useCallback(() => {
+    let value: number | null = selectedAudioFile && audioFiles.indexOf(selectedAudioFile)
+    if (value !== audioFiles.length - 1) {
+      setSelectedAudioFile(audioFiles[value! += 1])
+    }
+
+  }, [setSelectedAudioFile, selectedAudioFile, audioFiles])
+
+
+  useEffect(() => {
+    audioElement?.addEventListener('ended', onChangeNextTrack);
+
+    return () => {
+      audioElement?.removeEventListener('ended', onChangeNextTrack)
+    }
+  }, [audioElement, onChangeNextTrack])
+
 
   const togglePlaying = useCallback(() => {
     if (audioElement) {
@@ -43,7 +55,7 @@ export const PlayerControls: FC = () => {
 
   return (
     <div className="PlayerControls">
-      <button className="button" onClick={prevTrack}  disabled={!audioFiles} >
+      <button className="button" onClick={onChangePrevTrack} disabled={!audioElement} >
         <PrevIcon />
       </button>
 
@@ -59,7 +71,7 @@ export const PlayerControls: FC = () => {
         <ForwardIcon />
       </button>
 
-      <button className="button"  onClick={nextTrack} disabled={!audioFiles}>
+      <button className="button" onClick={onChangeNextTrack} disabled={!audioElement}>
         <NextIcon />
       </button>
     </div>

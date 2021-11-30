@@ -13,12 +13,12 @@ export function usePlayerAudioFiles(): Dispatch<ChangeEvent<HTMLInputElement>> {
 
         if (files.length) {
           const audioFiles = files.filter(({ type }) => type.match(audioRegExp));
-          // const [firstAudioFile] = audioFiles;
+          const [firstAudioFile] = audioFiles;
 
           setAudioFiles(audioFiles);
 
-          if (audioFiles[0]) {
-            setSelectedAudioFile(audioFiles[0]);
+          if (firstAudioFile) {
+            setSelectedAudioFile(firstAudioFile);
           }
         }
       }

@@ -8,7 +8,6 @@ interface Props {
 }
 
 export const PlayerTimings: FC<Props> = ({duration, currentTime}) => {
-
   const [durationMinutes, durationSeconds] = usePlayerTimeData(duration);
   const [currentMinutes, currentSeconds] = usePlayerTimeData(currentTime);
 

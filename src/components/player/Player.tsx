@@ -9,6 +9,7 @@ import { PlayerContext, usePlayerContext } from './PlayerContext';
 import { PlayerList } from './PlayerList';
 import { PlayerInput } from './PlayerInput';
 import { PlayerAudio } from './PlayerAudio';
+import { PlayerVolume } from './PlayerVolume';
 
 export const Player: FC = () => {
   const contextValue = usePlayerContext();
@@ -25,9 +26,11 @@ export const Player: FC = () => {
 
         <PlayerTimings duration={duration} currentTime={currentTime} />
 
-        <PlayerRange  duration={duration} currentTime={currentTime} />
+        <PlayerRange duration={duration} currentTime={currentTime} />
 
         <PlayerControls />
+
+        <PlayerVolume />
       </div>
     </PlayerContext.Provider>
   );
