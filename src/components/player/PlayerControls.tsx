@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useContext, useEffect } from 'react';
+import React, { FC, useCallback, useContext } from 'react';
 import { ReactComponent as PlayIcon } from '../../icons/play.svg';
 import { ReactComponent as PauseIcon } from '../../icons/pause.svg';
 import { ReactComponent as BackwardIcon } from "../../icons/backward.svg";
@@ -32,15 +32,6 @@ export const PlayerControls: FC = () => {
     }
 
   }, [setSelectedAudioFile, selectedAudioFile, audioFiles])
-
-
-  useEffect(() => {
-    audioElement?.addEventListener('ended', onChangeNextTrack);
-
-    return () => {
-      audioElement?.removeEventListener('ended', onChangeNextTrack)
-    }
-  }, [audioElement, onChangeNextTrack])
 
 
   const togglePlaying = useCallback(() => {

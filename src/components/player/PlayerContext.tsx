@@ -1,12 +1,18 @@
 import { createContext, Dispatch, SetStateAction, useMemo, useState } from 'react';
 
+export interface PlayerAudio {
+  name: string;
+  url: string;
+  duration: number;
+}
+
 export interface PlayerContextValue {
   audioElement: HTMLAudioElement | null;
   setAudioElement: Dispatch<SetStateAction<HTMLAudioElement | null>>;
-  audioFiles: File[];
-  setAudioFiles: Dispatch<SetStateAction<File[]>>;
-  selectedAudioFile: File | null;
-  setSelectedAudioFile: Dispatch<SetStateAction<File | null>>;
+  audioFiles: PlayerAudio[];
+  setAudioFiles: Dispatch<SetStateAction<PlayerAudio[]>>;
+  selectedAudioFile: PlayerAudio | null;
+  setSelectedAudioFile: Dispatch<SetStateAction<PlayerAudio | null>>;
 }
 
 export const PlayerContext = createContext<PlayerContextValue>({
@@ -20,8 +26,8 @@ export const PlayerContext = createContext<PlayerContextValue>({
 
 export function usePlayerContext(): PlayerContextValue {
   const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
-  const [audioFiles, setAudioFiles] = useState<File[]>([]);
-  const [selectedAudioFile, setSelectedAudioFile] = useState<File | null>(null);
+  const [audioFiles, setAudioFiles] = useState<PlayerAudio[]>([]);
+  const [selectedAudioFile, setSelectedAudioFile] = useState<PlayerAudio | null>(null);
 
   return useMemo(
     () => ({
