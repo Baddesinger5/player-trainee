@@ -1,10 +1,10 @@
 import React, { FC, useCallback, useContext } from 'react';
 import { ReactComponent as PlayIcon } from '../../icons/play.svg';
 import { ReactComponent as PauseIcon } from '../../icons/pause.svg';
-import { ReactComponent as BackwardIcon } from "../../icons/backward.svg";
-import { ReactComponent as ForwardIcon } from "../../icons/forward.svg";
-import { ReactComponent as PrevIcon } from "../../icons/prev.svg";
-import { ReactComponent as NextIcon } from "../../icons/next.svg";
+import { ReactComponent as BackwardIcon } from '../../icons/backward.svg';
+import { ReactComponent as ForwardIcon } from '../../icons/forward.svg';
+import { ReactComponent as PrevIcon } from '../../icons/prev.svg';
+import { ReactComponent as NextIcon } from '../../icons/next.svg';
 
 import './PlayerControls.scss';
 import { useMediaElementPlaying } from '../../hooks/useMediaElementPlaying';
@@ -18,21 +18,20 @@ export const PlayerControls: FC = () => {
   const moveForward = useCallback(() => audioElement && (audioElement.currentTime += 10), [audioElement]);
 
   const onChangePrevTrack = useCallback(() => {
-    let value: number | null = selectedAudioFile && audioFiles.indexOf(selectedAudioFile)
+    let value: number | null = selectedAudioFile && audioFiles.indexOf(selectedAudioFile);
     if (value) {
       setSelectedAudioFile(audioFiles[value -= 1]);
     }
 
-  }, [setSelectedAudioFile, selectedAudioFile, audioFiles])
+  }, [setSelectedAudioFile, selectedAudioFile, audioFiles]);
 
   const onChangeNextTrack = useCallback(() => {
-    let value: number | null = selectedAudioFile && audioFiles.indexOf(selectedAudioFile)
+    let value: number | null = selectedAudioFile && audioFiles.indexOf(selectedAudioFile);
     if (value !== audioFiles.length - 1) {
-      setSelectedAudioFile(audioFiles[value! += 1])
+      setSelectedAudioFile(audioFiles[value! += 1]);
     }
 
-  }, [setSelectedAudioFile, selectedAudioFile, audioFiles])
-
+  }, [setSelectedAudioFile, selectedAudioFile, audioFiles]);
 
   const togglePlaying = useCallback(() => {
     if (audioElement) {
@@ -46,7 +45,7 @@ export const PlayerControls: FC = () => {
 
   return (
     <div className="PlayerControls">
-      <button className="button" onClick={onChangePrevTrack} disabled={!audioElement} >
+      <button className="button" onClick={onChangePrevTrack} disabled={!audioElement}>
         <PrevIcon />
       </button>
 

@@ -1,0 +1,48 @@
+.FeedbackForm {
+  position: absolute;
+  top: 100px;
+  right: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 253px;
+  height: 241px;
+  padding: 12px;
+  background: #FFFFFF;
+  border-radius: 3px;
+
+    > .form-title {
+      font-size: 14px;
+      color: #000000;
+    }
+
+    > .input-name {
+      width: 225px;
+      height: 30px;
+      border-radius: 3px;
+      outline: none;
+    }
+
+    > .textarea {
+      width: 225px;
+      height: 84px;
+      resize: none;
+      border-radius: 3px;
+      outline: none;
+      margin: 10px 0;
+    }
+
+    > .form-send {
+      width: 114px;
+      height: 31px;
+      background: #0094FF;
+      border-radius: 3px;
+      outline: none;
+      border: none;
+      cursor: pointer;
+      color: #ffffff;
+    }
+
+}

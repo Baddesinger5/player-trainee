@@ -1,10 +1,5 @@
 import { createContext, Dispatch, SetStateAction, useMemo, useState } from 'react';
-
-export interface PlayerAudio {
-  name: string;
-  url: string;
-  duration: number;
-}
+import { PlayerAudio }  from './PlayerInterfaces';
 
 export interface PlayerContextValue {
   audioElement: HTMLAudioElement | null;

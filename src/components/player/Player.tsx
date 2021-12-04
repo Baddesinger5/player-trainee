@@ -10,6 +10,7 @@ import { PlayerList } from './PlayerList';
 import { PlayerInput } from './PlayerInput';
 import { PlayerAudio } from './PlayerAudio';
 import { PlayerVolume } from './PlayerVolume';
+import { Feedback } from '../feedback/Feedback';
 
 export const Player: FC = () => {
   const contextValue = usePlayerContext();
@@ -21,6 +22,8 @@ export const Player: FC = () => {
   return (
     <PlayerContext.Provider value={contextValue}>
       <div className="Player">
+
+        <Feedback />
 
         {audioFiles.length ? (<> <PlayerList /> <PlayerAudio /> </>) : <PlayerInput/> }
 

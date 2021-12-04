@@ -7,13 +7,13 @@ export const PlayerList: FC = () => {
   const { audioFiles, setSelectedAudioFile } = useContext(PlayerContext);
 
   useEffect(() => {
-    if (audioFiles) {
-      setSelectedAudioFile(audioFiles[0])
+    if (audioFiles.length) {
+      setSelectedAudioFile(audioFiles[0]);
     }
-  }, [])
+  }, [audioFiles, setSelectedAudioFile]);
 
   return (
-    <ul className="PlayerList">
+    <ul className='PlayerList'>
       {audioFiles.map((audioFile, index) => (
         <PlayerAudioFile audioFile={audioFile} key={index} />
       ))}

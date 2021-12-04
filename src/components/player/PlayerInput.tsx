@@ -1,28 +1,21 @@
 import React, { FC, useCallback, useContext, ChangeEvent } from 'react';
 import { PlayerContext } from './PlayerContext';
-
-interface PlayerAudio {
-  name: string,
-  url: string,
-  duration: number,
-}
+import { PlayerAudio } from './PlayerInterfaces';
 
 const audioRegExp = /^audio\/.+/;
 
-
 export const PlayerInput: FC = () => {
-    const {setAudioFiles} = useContext(PlayerContext);
+  const { setAudioFiles } = useContext(PlayerContext);
 
-    const onFileChange = useCallback(async (event: ChangeEvent<HTMLInputElement> ) => {
-      const files = event.target.files as FileList;
-      const audioFiles = Array.from(files).filter((file) => {
-        return file.type.match(audioRegExp)
-      })
+  const onFileChange = useCallback(async (event: ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files as FileList;
+    const audioFiles = Array.from(files).filter((file) => {
+      return file.type.match(audioRegExp);
+    });
 
-      setAudioFiles(await getPlayerAudios(audioFiles));
+    setAudioFiles(await getPlayerAudios(audioFiles));
 
-    }, [setAudioFiles]);
-
+  }, [setAudioFiles]);
 
   return <input type="file" multiple={true} onChange={onFileChange} />;
 };
