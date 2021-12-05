@@ -1,36 +1,36 @@
-import { ChangeEvent, FC, FormEvent, useCallback, useState } from 'react';
+import { FC, FormEvent, useEffect, useState } from 'react';
 import './FeedbackForm.scss';
 import { FeedbackTextAlert } from './FeedbackTextAlert';
 import { FeedbackInputAlert } from './FeedbackInputAlert';
+import { useFeedbackInputsHandler } from './hooks/useFeedbackInputsHandler';
 
 export const FeedbackForm: FC = () => {
-  const [inputValue, setInputValue] = useState<string>('');
-  const [textareaValue, setTextareaValue] = useState<string>('');
+  const [values, inputHandlers, setValues] = useFeedbackInputsHandler();
 
   const [showInputAlert, setShowInputAlert] = useState<boolean>(false);
   const [showTextAlert, setShowTextAlert] = useState<boolean>(false);
 
-  const inputHandler = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
+  useEffect(() => {
     setShowInputAlert(false);
-  }, [setInputValue]);
+  }, [values.name]);
 
-  const textareaHandler = useCallback((event: ChangeEvent<HTMLTextAreaElement>) => {
-    setTextareaValue(event.target.value);
+  useEffect(() => {
     setShowTextAlert(false);
-  }, [setTextareaValue]);
+  }, [values.message]);
 
   const sendForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!inputValue.trim().length) {
+    if (!values.name.trim().length) {
       setShowInputAlert(true);
-    } else if (textareaValue.trim().length < 30) {
+    } else if (values.message.trim().length < 30) {
       setShowTextAlert(true);
     } else {
-      console.log('Input text is: ', inputValue.trim(), 'textarea text is: ', textareaValue.trim());
-      setInputValue('');
-      setTextareaValue('');
+      console.log('Input text is: ', values.name.trim(), 'textarea text is: ', values.message.trim());
+      setValues({
+        name: '',
+        message: '',
+      });
     }
   };
 
@@ -38,13 +38,13 @@ export const FeedbackForm: FC = () => {
     <form onSubmit={sendForm} action="/" className="FeedbackForm">
       <h1 className="form-title">Feedback</h1>
 
-      <input className="input-name" value={inputValue} type="text" placeholder="Your name"
-             onChange={inputHandler} />
+      <input className="input-name" name="name" value={values.name} type="text" placeholder="Your name"
+             onChange={inputHandlers} />
 
       {showInputAlert ? <FeedbackInputAlert /> : null}
 
-      <textarea className="textarea" value={textareaValue} placeholder="Your message"
-                onChange={textareaHandler} />
+      <textarea className="textarea" name="message" value={values.message} placeholder="Your message"
+                onChange={inputHandlers} />
 
       {showTextAlert ? <FeedbackTextAlert /> : null}
 
