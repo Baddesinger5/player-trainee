@@ -1,4 +1,4 @@
-export interface IFeedbackForm {
+export interface FeedbackFormData {
   name: string,
   message: string,
 }

@@ -3,28 +3,29 @@ import './FeedbackForm.scss';
 import { FeedbackTextAlert } from './FeedbackTextAlert';
 import { FeedbackInputAlert } from './FeedbackInputAlert';
 import { useFeedbackInputsHandler } from './hooks/useFeedbackInputsHandler';
+import { FeedbackFormFieldName } from './enums/FeedbackEnum';
 
 export const FeedbackForm: FC = () => {
-  const [values, inputHandlers, setValues] = useFeedbackInputsHandler();
+  const [values, onInputChanges, setValues] = useFeedbackInputsHandler();
 
-  const [showInputAlert, setShowInputAlert] = useState<boolean>(false);
-  const [showTextAlert, setShowTextAlert] = useState<boolean>(false);
+  const [inputAlert, setInputAlert] = useState<boolean>(false);
+  const [textAlert, setTextAlert] = useState<boolean>(false);
 
   useEffect(() => {
-    setShowInputAlert(false);
+    setInputAlert(false);
   }, [values.name]);
 
   useEffect(() => {
-    setShowTextAlert(false);
+    setTextAlert(false);
   }, [values.message]);
 
   const sendForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!values.name.trim().length) {
-      setShowInputAlert(true);
+      setInputAlert(true);
     } else if (values.message.trim().length < 30) {
-      setShowTextAlert(true);
+      setTextAlert(true);
     } else {
       console.log('Input text is: ', values.name.trim(), 'textarea text is: ', values.message.trim());
       setValues({
@@ -35,20 +36,39 @@ export const FeedbackForm: FC = () => {
   };
 
   return (
-    <form onSubmit={sendForm} action="/" className="FeedbackForm">
+    <form
+      onSubmit={sendForm}
+      action="/"
+      className="FeedbackForm"
+    >
       <h1 className="form-title">Feedback</h1>
 
-      <input className="input-name" name="name" value={values.name} type="text" placeholder="Your name"
-             onChange={inputHandlers} />
+      <input
+        className="input-name"
+        name={FeedbackFormFieldName.Name}
+        value={values.name}
+        type="text"
+        placeholder="Your name"
+        onChange={onInputChanges}
+      />
 
-      {showInputAlert ? <FeedbackInputAlert /> : null}
+      {inputAlert ? <FeedbackInputAlert /> : null}
 
-      <textarea className="textarea" name="message" value={values.message} placeholder="Your message"
-                onChange={inputHandlers} />
+      <textarea
+        className="textarea"
+        name={FeedbackFormFieldName.Message}
+        value={values.message}
+        placeholder="Your message"
+        onChange={onInputChanges}
+      />
 
-      {showTextAlert ? <FeedbackTextAlert /> : null}
+      {textAlert ? <FeedbackTextAlert /> : null}
 
-      <button className="form-send" type="submit">Send</button>
+      <button
+        className="form-send"
+        type="submit"
+      >Send
+      </button>
     </form>
   );
 };

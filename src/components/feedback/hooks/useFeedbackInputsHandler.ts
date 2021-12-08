@@ -1,21 +1,21 @@
 import { ChangeEvent, Dispatch, SetStateAction, useCallback, useState } from 'react';
-import { IFeedbackForm } from '../FeedbackInterfaces';
+import { FeedbackFormData } from '../FeedbackInterfaces';
 
-export function useFeedbackInputsHandler(): [IFeedbackForm, Dispatch<ChangeEvent<HTMLInputElement | HTMLTextAreaElement>>, Dispatch<SetStateAction<IFeedbackForm>>] {
-  const [values, setValues] = useState<IFeedbackForm>({
+export function useFeedbackInputsHandler(): [FeedbackFormData, Dispatch<ChangeEvent<HTMLInputElement | HTMLTextAreaElement>>, Dispatch<SetStateAction<FeedbackFormData>>] {
+  const [values, setValues] = useState<FeedbackFormData>({
     name: '',
     message: '',
-  })
+  });
 
-  const inputHandlers = useCallback((event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const onInputChanges = useCallback((event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const inputNames = event.target.name;
     const inputValues = event.target.value;
 
     setValues({
       ...values,
-      [inputNames]: inputValues
-    })
-  }, [values, setValues])
+      [inputNames]: inputValues,
+    });
+  }, [values, setValues]);
 
-  return [values, inputHandlers, setValues]
+  return [values, onInputChanges, setValues];
 }

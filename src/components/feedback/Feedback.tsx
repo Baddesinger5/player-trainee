@@ -1,16 +1,19 @@
 import { FC } from 'react';
 import './Feedback.scss';
-import { usePopupToggler } from '../../hooks/usePopupToggler';
+import { useToggle } from '../../hooks/useToggle';
 import { FeedbackForm } from './FeedbackForm';
 
 export const Feedback: FC = () => {
-  const [toggle, onToggleHandler] = usePopupToggler();
+  const [open, toggle] = useToggle();
 
   return (
     <>
-      <button className="Feedback" onClick={onToggleHandler}>{toggle ? 'Close' : 'Feedback'}</button>
+      <button
+        className="Feedback"
+        onClick={toggle}
+      >{open ? 'Close' : 'Feedback'}</button>
 
-      {toggle ? <FeedbackForm /> : null}
+      {open ? <FeedbackForm /> : null}
     </>
   );
 };
