@@ -1,4 +1,5 @@
-export interface FeedbackFormData {
-  name: string,
-  message: string,
+import { FeedbackFormFieldName } from './enums/FeedbackEnum';
+
+export type FeedbackFormData = {
+  [key in FeedbackFormFieldName]: string
 }

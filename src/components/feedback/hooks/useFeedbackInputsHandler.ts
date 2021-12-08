@@ -1,10 +1,11 @@
 import { ChangeEvent, Dispatch, SetStateAction, useCallback, useState } from 'react';
 import { FeedbackFormData } from '../FeedbackInterfaces';
+import { FeedbackFormFieldName } from '../enums/FeedbackEnum';
 
 export function useFeedbackInputsHandler(): [FeedbackFormData, Dispatch<ChangeEvent<HTMLInputElement | HTMLTextAreaElement>>, Dispatch<SetStateAction<FeedbackFormData>>] {
   const [values, setValues] = useState<FeedbackFormData>({
-    name: '',
-    message: '',
+    [FeedbackFormFieldName.Name]: '',
+    [FeedbackFormFieldName.Message]: '',
   });
 
   const onInputChanges = useCallback((event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
